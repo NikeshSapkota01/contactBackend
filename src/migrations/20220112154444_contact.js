@@ -1,11 +1,13 @@
-const table_name = "user";
+const table_name = "contact";
 
 exports.up = function (knex) {
   return knex.schema.createTable(table_name, (table) => {
     table.increments();
-    table.string("email").notNullable().unique();
-    table.string("password").notNullable();
+    table.string("name").notNullable();
+    table.string("phone").notNullable();
+    table.string("photograph");
     table.timestamps(true, true);
+    table.integer("UserId").unsigned().index().references("id").inTable("user");
   });
 };
 

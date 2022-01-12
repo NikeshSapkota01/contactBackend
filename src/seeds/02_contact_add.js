@@ -5,7 +5,7 @@
  * @returns {Promise}
  */
 
-const table_name = "user"
+const table_name = "contact";
 
 exports.seed = function (knex) {
   return knex(table_name)
@@ -13,13 +13,15 @@ exports.seed = function (knex) {
     .then(() => {
       return knex(table_name).insert([
         {
-          colName: 'rowValue',
-          colName2: 'rowValue'
+          name: "Rabin",
+          phone: "9860000000",
+          photograph: "",
         },
         {
-          colName: 'rowValue',
-          colName2: 'rowValue'
-        }
+          name: "ram",
+          phone: "9861000000",
+          photograph: "",
+        },
       ]);
     });
-}
+};
