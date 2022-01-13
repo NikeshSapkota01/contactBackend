@@ -1,4 +1,5 @@
 import bookshelf from "../db";
+import Contact from "./contact";
 
 const TABLE_NAME = "user";
 
@@ -18,6 +19,10 @@ class User extends bookshelf.Model {
    */
   get hasTimestamps() {
     return true;
+  }
+
+  contacts() {
+    return this.hasMany(Contact, "userId");
   }
 }
 

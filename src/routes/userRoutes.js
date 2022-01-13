@@ -2,7 +2,6 @@ import { Router } from "express";
 
 import * as userController from "../controllers/users";
 import { userValidator } from "../validators/userValidator";
-import { authenticate } from "../validators/userAuthentication";
 
 const router = Router();
 

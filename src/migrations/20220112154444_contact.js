@@ -7,7 +7,12 @@ exports.up = function (knex) {
     table.string("phone").notNullable();
     table.string("photograph");
     table.timestamps(true, true);
-    table.integer("UserId").unsigned().index().references("id").inTable("user");
+    table
+      .integer("user_id")
+      .unsigned()
+      .index()
+      .references("id")
+      .inTable("user");
   });
 };
 

@@ -1,13 +1,6 @@
 import HttpStatus from "http-status-codes";
 import * as userService from "../services/userService";
 
-/**
- * Get all users.
- *
- * @param {Object} req
- * @param {Object} res
- * @param {Function} next
- */
 export function fetchAll(req, res, next) {
   userService
     .getAllUsers()
@@ -16,7 +9,6 @@ export function fetchAll(req, res, next) {
 }
 
 export function create(req, res, next) {
-  console.log(`req.body inside contorller`, req.body);
   userService
     .createUser(req.body)
     .then((data) => res.status(HttpStatus.CREATED).json({ data }))
@@ -31,7 +23,10 @@ export function userSignIn(req, res, next) {
   console.log(`email, password`, email, password);
   userService
     .userSignIn({ email, password })
-    .then((data) => res.json({ accessToken: data.token }))
+    .then((data) => {
+      console.log(`data`, data);
+      res.json({ accessToken: data.token, userId: data.userid });
+    })
     .catch((err) => {
       next(err);
     });

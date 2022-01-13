@@ -15,8 +15,8 @@ const authenticate = (req, res, next) => {
       if (err) res.json({ msg: err });
       console.log(`decoded`, decoded);
 
-      const { email, password } = decoded;
-      res.user = { email, password };
+      const { email, id } = decoded;
+      res.user = { email, id };
       next();
     });
   }
