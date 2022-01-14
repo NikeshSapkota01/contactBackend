@@ -2,16 +2,23 @@ import Boom from "@hapi/boom";
 
 import Contact from "../models/contact";
 
-export function getAllContacts() {
-  return Contact.fetchAll();
+export function getAllContacts(userId) {
+  // return Contact.fetchAll();
+  return Contact.where({ user_id: userId }).fetchAll();
 }
 
 export async function createContact(contact) {
-  return new Contact(contact).save();
+  return new Contact({
+    name: contact.name,
+    phone: contact.phone,
+    user_id: contact.userId,
+  }).save();
 }
 
-export function getContact(id) {
-  return new Contact({ id })
+export function getContact({ params, userId }) {
+  console.log(`params, userId`, params, userId);
+  return new Contact({ id: params })
+    .where({ user_id: userId })
     .fetch()
     .then((contact) => contact)
     .catch(Contact.NotFoundError, () => {
@@ -20,9 +27,16 @@ export function getContact(id) {
 }
 
 export function updateContact(id, contact) {
-  return new Contact({ id }).save({ name: contact.name, phone: contact.phone });
+  console.log(`contact`, contact);
+  return new Contact({ id }).save({
+    name: contact.name,
+    phone: contact.phone,
+  });
 }
 
-export function deleteContact(id) {
-  return new Contact({ id }).fetch().then((contact) => contact.destroy());
+export function deleteContact({ params, userId }) {
+  return new Contact({ id: params })
+    .where({ user_id: userId })
+    .fetch()
+    .then((contact) => contact.destroy());
 }

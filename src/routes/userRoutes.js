@@ -5,7 +5,7 @@ import { userValidator } from "../validators/userValidator";
 
 const router = Router();
 
-router.get("/", userController.fetchAll);
+router.get("/users", userController.fetchAll);
 router.post("/signup", userValidator, userController.create);
 router.post("/signin", userValidator, userController.userSignIn);
 

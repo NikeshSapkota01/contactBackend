@@ -8,7 +8,7 @@ const schema = Joi.object({
   name: Joi.string().required(),
   phone: Joi.string().min(10).max(15).required(),
   photograph: Joi.string(),
-  user_id: Joi.number().required(),
+  userId: Joi.number().required(),
 });
 
 function contactValidation(req, res, next) {
@@ -19,7 +19,7 @@ function contactValidation(req, res, next) {
 
 function findContact(req, res, next) {
   return contactService
-    .getContact(req.params.id)
+    .getContact({ params: req.params.id, userId: req.body.userId })
     .then(() => next())
     .catch((err) => next(err));
 }

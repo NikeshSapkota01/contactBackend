@@ -16,11 +16,25 @@ exports.seed = function (knex) {
           name: "Rabin",
           phone: "9860000000",
           photograph: "",
+          user_id: "1",
+        },
+        {
+          name: "Appu",
+          phone: "9980000000",
+          photograph: "",
+          user_id: "1",
         },
         {
           name: "ram",
           phone: "9861000000",
           photograph: "",
+          user_id: "2",
+        },
+        {
+          name: "hari",
+          phone: "9841000000",
+          photograph: "",
+          user_id: "2",
         },
       ]);
     });

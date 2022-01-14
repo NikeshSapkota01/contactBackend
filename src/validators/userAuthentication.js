@@ -11,7 +11,8 @@ const authenticate = (req, res, next) => {
   if (!token) {
     res.status(401).json("Not authenticated");
   } else {
-    jwt.verify(token, secret, (err, decoded) => {
+    let newToken = token.replace("Bearer ", "");
+    jwt.verify(newToken, secret, (err, decoded) => {
       if (err) res.json({ msg: err });
       console.log(`decoded`, decoded);
 

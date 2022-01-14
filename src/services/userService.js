@@ -5,20 +5,29 @@ import User from "../models/user";
 const secret = process.env.SECKRET_KEY;
 
 export function getAllUsers() {
-  return User.fetchAll();
+  return User.fetchAll({
+    columns: ["id", "email", "created_at", "updated_at"],
+  });
+}
+
+export async function checkUserExists(user) {
+  try {
+    let test = await User.where({ email: user }).fetch({
+      require: true,
+    });
+    return Promise.reject();
+  } catch (error) {
+    return Promise.resolve();
+  }
 }
 
 export async function createUser(user) {
-  // check query
-
-  // try {
-  //   await new User(user.email).fetch().then((res) => console.log(`res`, res));
-  //   console.log("inside try");
-  // } catch (error) {
-  //   console.log(`error`, error);
-  // }
-
-  return new User(user).save();
+  return new User(user).save().catch((error) => {
+    if (error.code === "23505") {
+      throw Boom.badRequest("User with the same email already exists");
+    }
+    throw Boom.notFound("Something went wrongish");
+  });
 }
 
 const generateToken = ({ email, id }) => {
